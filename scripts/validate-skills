@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Validate the skills/ tree: every skill dir has a SKILL.md whose
+frontmatter has name (matching the dir) and description, with no
+duplicate names and no obvious secrets."""
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SKILLS = ROOT / "skills"
+SECRET_PATTERNS = [
+    r"AKIA[0-9A-Z]{16}",
+    r"ghp_[A-Za-z0-9]{36}",
+    r"github_pat_[A-Za-z0-9_]{22,}",
+    r"xox[baprs]-[A-Za-z0-9-]{10,}",
+    r"-----BEGIN [A-Z ]*PRIVATE KEY-----",
+    r"sk-[A-Za-z0-9]{20,}",
+]
+
+errors = []
+names = set()
+
+for entry in sorted(SKILLS.iterdir()):
+    if not entry.is_dir():
+        errors.append(f"{entry.name}: not a directory")
+        continue
+    skill_md = entry / "SKILL.md"
+    if not skill_md.is_file():
+        errors.append(f"{entry.name}: missing SKILL.md")
+        continue
+    text = skill_md.read_text()
+    m = re.match(r"\A---\n(.*?)\n---\n", text, re.DOTALL)
+    if not m:
+        errors.append(f"{entry.name}: SKILL.md has no frontmatter block")
+        continue
+    fm = m.group(1)
+    fields = dict(
+        (k.strip(), v.strip())
+        for k, v in (
+            line.split(":", 1) for line in fm.splitlines() if ":" in line
+        )
+    )
+    name = fields.get("name")
+    if not name:
+        errors.append(f"{entry.name}: frontmatter missing 'name'")
+    elif name != entry.name:
+        errors.append(f"{entry.name}: frontmatter name '{name}' != directory name")
+    if not fields.get("description"):
+        errors.append(f"{entry.name}: frontmatter missing 'description'")
+    if name in names:
+        errors.append(f"{entry.name}: duplicate skill name '{name}'")
+    names.add(name)
+    for pat in SECRET_PATTERNS:
+        if re.search(pat, text):
+            errors.append(f"{entry.name}: possible secret matching /{pat}/")
+
+if errors:
+    print("FAIL")
+    for e in errors:
+        print(f"  - {e}")
+    sys.exit(1)
+print(f"OK: {len(names)} skills validated")
