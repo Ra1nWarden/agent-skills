@@ -21,11 +21,16 @@ If no arguments are provided, ask the user for the list of GitHub usernames.
 
 ## State Persistence
 
-Assignment state is persisted across sessions in a JSON file:
+Assignment state is persisted across sessions in a JSON file (create the
+directory on first write):
 
 ```
-~/.claude/projects/-Users-zwang-figma-figma/pr-assignments-state.json
+~/.local/state/agent-skills/pr-assignments-state.json
 ```
+
+If this file does not exist but a legacy state file exists under
+`~/.claude/projects/*/pr-assignments-state.json`, read the legacy file as the
+starting state and write all updates to the new path.
 
 ### State file schema
 
@@ -196,7 +201,9 @@ Pass `--include-author-court` to override this — useful when you want to nudge
 
 ### Step 6: Save state
 
-After presenting results, write the updated state file to `~/.claude/projects/-Users-zwang-figma-figma/pr-assignments-state.json` with:
+After presenting results, write the updated state file to
+`~/.local/state/agent-skills/pr-assignments-state.json` (see State
+Persistence) with:
 - Incremented round number and today's date
 - Full team roster (including any newly learned name/slackHandle mappings — preserve existing mappings for team members not in this round)
 - All active assignments (carried over + new). Remove PRs that were approved or excluded this round.
