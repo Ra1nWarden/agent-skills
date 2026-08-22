@@ -71,7 +71,15 @@ Wait for all three to complete.
 Present the reviews to the user in a structured format:
 
 ```
-## Review: <change description>
+# Review: <change description>
+
+## Summary
+
+- Overall verdict and what it means.
+- Highest-priority findings, or that none were found.
+- Required next action, if any.
+
+## Findings
 
 ### Architecture
 <architect-review verdict and issues>
@@ -84,7 +92,7 @@ Present the reviews to the user in a structured format:
 
 ---
 
-### Overall
+## Overall
 - Critical issues: <count>
 - Warnings: <count>
 - Nits: <count>
@@ -96,8 +104,8 @@ The overall verdict is:
 - **PASS WITH WARNINGS** if any reviewer returned PASS WITH WARNINGS
 - **PASS** only if all three reviewers returned PASS
 
-Findings come first; include open questions or assumptions, and give a brief
-change summary only after findings.
+After the summary, detailed findings come first. Include open questions or
+assumptions, and give a brief change summary only after findings.
 
 ---
 

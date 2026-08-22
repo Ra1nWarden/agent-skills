@@ -87,16 +87,22 @@ using this structure:
 ```markdown
 # Research: <Topic>
 
+## Summary
+
+- What was investigated and why it matters.
+- The 2–4 most important findings.
+- The main implication, risk, or open question.
+
 **Date**: <YYYY-MM-DD>
 
 **Project**: <project name>
 
 **Scope**: <1-line summary of what was investigated>
 
-## Overview
+## System Overview
 
-High-level summary of the topic area — 2-3 paragraphs max. What is this system,
-what problem does it solve, and what is the overall architecture?
+Describe the topic area in enough detail to orient a new developer. What is this
+system, what problem does it solve, and what is the overall architecture?
 
 ## Key Components
 
@@ -151,7 +157,8 @@ When the user asks follow-up questions after the initial research:
    on prior findings; otherwise explore locally).
 2. **Update the existing research brief** when one is clearly in scope —
    integrate the new findings into the relevant sections (add components,
-   expand flows, update API surface, etc.). Otherwise create a new brief.
+   expand flows, update API surface, etc.) and refresh `## Summary` to reflect
+   the new bottom line. Otherwise create a new brief.
 3. **Commit-on-write**: Run the `blueprints` commit protocol after updating.
 4. **Present the updated sections** to the user — show what changed, not the
    entire brief again.

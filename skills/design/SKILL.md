@@ -83,6 +83,12 @@ Design request: $ARGUMENTS
 ```markdown
 # Design: <Title>
 
+## Summary
+
+- The problem and intended outcome.
+- The recommended approach and why it is preferred.
+- The most important trade-offs, risks, and decision or next step.
+
 **Date**: <YYYY-MM-DD>
 **Status**: Draft
 
@@ -157,10 +163,12 @@ Which approach and why. What assumptions does this depend on?
 ...
 ```
 
-2. Update the document **Status** from "Draft" to "Reviewed"
-3. **Commit-on-write**: Run the `blueprints` commit protocol again to save the
+2. Refresh `## Summary` so it reflects the final recommendation, key risks or
+   trade-offs, and the reviewer's verdict.
+3. Update the document **Status** from "Draft" to "Reviewed"
+4. **Commit-on-write**: Run the `blueprints` commit protocol again to save the
    review feedback.
-4. Present to the user:
+5. Present to the user:
    - The file path of the design doc
    - Your recommendation (brief)
    - The reviewer's verdict and strongest concern

@@ -89,7 +89,9 @@ sequentially yourself, keeping edits scoped and following repo patterns.
    - **Persist reviews**: If `$BLUEPRINTS_DIR` is set, save the combined review
      output for the wave to
      `$BLUEPRINTS_DIR/$PROJECT/review/<timestamp>-wave-<N>-<slug>.md`
-     and run commit-on-write.
+     using the `blueprints` summary convention, then run commit-on-write. Its
+     summary should state the overall verdict, highest-priority issues, and
+     required next action.
 4. **Fix round (one round only)**: Collect all Critical and Warning issues
    from all three reviewers. For each task that received issues:
    - Re-dispatch the task's agent (or fix locally) with:
@@ -142,21 +144,27 @@ the original design document.
 3. Present the findings to the user as a final judgement:
 
 ```
-## Design Conformance Report
+# Design Conformance Report
 
-### API Conformance: PASS / FAIL
+## Summary
+
+- Overall conformance verdict and what it means.
+- The most important deviation or gap, or that none were found.
+- Required next action, if any.
+
+## API Conformance: PASS / FAIL
 <details>
 
-### Architecture Adherence: PASS / FAIL
+## Architecture Adherence: PASS / FAIL
 <details>
 
-### Scope Creep: NONE DETECTED / ISSUES FOUND
+## Scope Creep: NONE DETECTED / ISSUES FOUND
 <details>
 
-### Completeness: COMPLETE / GAPS FOUND
+## Completeness: COMPLETE / GAPS FOUND
 <details>
 
-### Overall Verdict: CONFORMANT / DEVIATIONS FOUND
+## Overall Verdict: CONFORMANT / DEVIATIONS FOUND
 <one-paragraph summary of how faithfully the implementation matches the design>
 ```
 

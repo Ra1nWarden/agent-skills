@@ -33,6 +33,28 @@ PROJECT=${PROJECT#.}
 The last line strips a leading dot so hidden-directory repos map to a normal
 blueprints folder (e.g. `.dotfiles` → `dotfiles`).
 
+## Human-Readable Summary
+
+Every active blueprint must begin with a concise `## Summary` immediately after
+its top-level title, before metadata or detailed sections. This is the first
+section a human reader should see.
+
+- Use plain language, normally 3–7 bullets and no more than about 150 words.
+- State the bottom line rather than repeating the document's detailed evidence.
+- For research, summarize what was investigated, the most important findings,
+  and why they matter.
+- For designs, summarize the problem, recommendation, key trade-offs or risks,
+  and any decision needed.
+- For plans, summarize the intended outcome, approach, major phases, and
+  important constraints or approval state.
+- For reviews, summarize the verdict, highest-priority findings, and required
+  next action.
+
+Refresh the summary after every material update so it remains consistent with
+the body. When updating an active blueprint that has no summary, add one as part
+of that update. Do not rewrite untouched or archived blueprints solely to add a
+summary.
+
 ## Reuse Existing Blueprints
 
 Before creating any blueprint, check the current project's active `research/`,
@@ -116,6 +138,12 @@ the user for approval. Do not gate the commit on user approval.
    this structure:
    ```markdown
    # Plan: <Title>
+
+   ## Summary
+
+   - The intended outcome.
+   - The chosen approach and major implementation phases.
+   - Important constraints, risks, or approval state.
 
    **Date**: <YYYY-MM-DD>
    **Status**: Proposed
