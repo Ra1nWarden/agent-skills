@@ -135,16 +135,19 @@ the user for approval. Do not gate the commit on user approval.
 
 ## Archive Protocol
 
-Blueprints are **not** archived automatically. Only archive when the user
-explicitly asks (see the `archive-blueprint` skill):
+Archive relevant active blueprints when the user explicitly declares the
+project or a workstream complete, or after the agent successfully pushes the
+finishing implementation commits to the project repository's remote. Also
+support direct requests to archive a named artifact.
 
-```sh
-mkdir -p "$BLUEPRINTS_DIR/<project>/archive/"
-mv "$BLUEPRINTS_DIR/<project>/<type>/<file>" \
-   "$BLUEPRINTS_DIR/<project>/archive/"
-```
+A push is a completion signal only when the surrounding workflow establishes
+that it finishes the approved work. Do not treat blueprint-repository pushes,
+planning-only pushes, failed pushes, or intermediate implementation pushes as
+completion.
 
-Then run commit-on-write.
+Use the `archive-blueprint` skill to resolve the relevant set, protect unrelated
+active efforts, preflight destination collisions and repository state, move the
+set as one batch, and run commit-on-write once for the batch.
 
 ## Runtime-Specific Plan Mode Notes
 
