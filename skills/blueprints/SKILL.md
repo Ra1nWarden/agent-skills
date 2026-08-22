@@ -33,6 +33,24 @@ PROJECT=${PROJECT#.}
 The last line strips a leading dot so hidden-directory repos map to a normal
 blueprints folder (e.g. `.dotfiles` → `dotfiles`).
 
+## Reuse Existing Blueprints
+
+Before creating any blueprint, check the current project's active `research/`,
+`spec/`, `plan/`, and `review/` directories for an existing artifact with the
+same topic and purpose. Use filenames plus document titles, scopes, goals, and
+other relevant content to identify plausible matches.
+
+Read the full content of every plausible match before proceeding. If an active
+blueprint already covers the requested artifact, update the most directly
+relevant file in place. Preserve its path and original timestamp; do not create
+a second blueprint. Create a new timestamped file only when no active blueprint
+matches.
+
+Do not include `archive/` in this check. Archived blueprints have been
+explicitly retired from future workflow context. This reuse-before-create rule
+applies to every blueprint-producing skill, even when a downstream workflow
+also instructs the agent to generate a filename.
+
 ## Directory Layout
 
 ```
@@ -47,8 +65,9 @@ Create on first write: `mkdir -p "$BLUEPRINTS_DIR/<project>/<type>/"`
 
 ## Naming
 
-All files use `<timestamp>-<slug>.md` where timestamp is `date +%Y%m%d%H%M`.
-Example: `202604031530-auth-redesign.md`. No type-specific prefixes.
+New files use `<timestamp>-<slug>.md` where timestamp is `date +%Y%m%d%H%M`.
+Example: `202604031530-auth-redesign.md`. No type-specific prefixes. When
+updating an existing blueprint, keep its current filename.
 
 ## Commit-on-Write
 
@@ -91,8 +110,10 @@ the user for approval. Do not gate the commit on user approval.
 
 1. Research the codebase with read-only tools.
 2. Draft the plan content.
-3. Write the plan to `$BLUEPRINTS_DIR/<project>/plan/<timestamp>-<slug>.md`
-   using this structure:
+3. Run the reuse-before-create check. If a matching plan exists, read it in
+   full and integrate the new plan content into that file. Otherwise write a
+   new plan to `$BLUEPRINTS_DIR/<project>/plan/<timestamp>-<slug>.md` using
+   this structure:
    ```markdown
    # Plan: <Title>
 
